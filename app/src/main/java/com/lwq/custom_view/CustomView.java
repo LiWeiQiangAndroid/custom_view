@@ -3,8 +3,11 @@ package com.lwq.custom_view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RadialGradient;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -13,7 +16,7 @@ import androidx.annotation.Nullable;
 /**
  * Created by： liwq.
  * Created Time: 2020/4/13
- * Description：
+ * Description：自定义View实践练习
  */
 public class CustomView extends View {
 
@@ -28,15 +31,17 @@ public class CustomView extends View {
         path = new Path();
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         //画一个圆形
-        mPaint.setColor(Color.RED);
+        mPaint.setColor(Color.RED); //设置颜色
         //mPaint.setStyle(Paint.Style.STROKE); // Style 修改为画线模式 空心圆
         mPaint.setAntiAlias(true);
         canvas.drawCircle(300, 300, 200, mPaint);
+
 
         //画一个矩形
         mPaint.setColor(Color.parseColor("#009688"));
@@ -62,6 +67,33 @@ public class CustomView extends View {
 
         //绘制文字
         canvas.drawText("Created by： 李维强", 500, 130, mPaint);
+
+        mPaint.setARGB(100,255,0,0);
+        canvas.drawRect(0,0,300,300,mPaint);
+
+        mPaint.setARGB(100, 0, 0, 0);
+        canvas.drawLine(0, 0, 200, 200, mPaint);
+
+
+        mPaint.setColor(Color.RED); //设置颜色
+        //mPaint.setStyle(Paint.Style.STROKE); // Style 修改为画线模式 空心圆
+        mPaint.setAntiAlias(true);
+        canvas.drawCircle(300, 600, 200, mPaint);
+
+
+        //Shader着色器˛ LinearGradient 线性渐变
+        Shader shader = new LinearGradient(100, 100, 500, 500, Color.parseColor("#E91E63"),
+                Color.parseColor("#2196F3"), Shader.TileMode.CLAMP);
+        mPaint.setShader(shader);
+
+        canvas.drawCircle(300, 600, 200, mPaint);
+
+        //RadialGradient 辐射渐变
+        Shader shader1 = new RadialGradient(700, 600, 200, Color.parseColor("#E91E63"),
+                Color.parseColor("#2196F3"), Shader.TileMode.CLAMP);
+        mPaint.setShader(shader1);
+
+        canvas.drawCircle(700, 600, 200, mPaint);
 
     }
 }
